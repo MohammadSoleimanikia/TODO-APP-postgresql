@@ -1,45 +1,50 @@
-<%- include('partials/header.ejs'); -%>
+<%- include('partials/header.ejs'); -%> <!-- Include the header partial template -->
 
-  <div class="box" id="heading">
-    <h1>
-      <%= listTitle %>
-    </h1>
-  </div>
-  <div class="box">
-    <% for(let item of listItems){%>
-      <div class="item">
-        <form action="/delete" method="post">
-          <input type="checkbox" onchange="this.form.submit()" name="deleteItemId" value="<%= item.id %>">
-        </form>
+<div class="box" id="heading"> <!-- Create a div for the heading -->
+  <h1>
+    <%= listTitle %> <!-- Output the title of the list dynamically -->
+  </h1>
+</div>
 
-        <p id="title<%=item.id%>">
-          <%= item.title %>
-        </p>
+<div class="box"> <!-- Create a div to contain the list items -->
+  <% for(let item of listItems){%> <!-- Start a loop over each item in the listItems array -->
+    <div class="item"> <!-- Create a div for each individual item -->
+      <form action="/delete" method="post"> <!-- Form to handle item deletion -->
+        <input type="checkbox" onchange="this.form.submit()" name="deleteItemId" value="<%= item.id %>"> <!-- Checkbox to delete item; submits form on change -->
+      </form>
 
-        <form class="edit" action="/edit" method="post">
-          <input type="hidden" name="updatedItemId" value="<%= item.id %>">
-          <input id="input<%=item.id%>" type="text" name="updatedItemTitle" value="<%= item.title %>" autocomplete="off"
-            autofocus="true" hidden="true" />
-          <button id="done<%=item.id%>" class="edit" type="submit" hidden><img class="icon"
-              src="/assets/icons/check-solid.svg" alt="tick image"></button>
-        </form>
-        <button id="edit<%=item.id%>" class="edit" onclick="handler('<%=item.id%>')"><img class="icon"
-            src="/assets/icons/pencil-solid.svg" alt="pencil image"></button>
-      </div>
-      <% } %>
+      <p id="title<%=item.id%>"> <!-- Paragraph to display the item's title, uniquely identified by its ID -->
+        <%= item.title %> <!-- Output the title of the current item dynamically -->
+      </p>
 
-        <form class="item" action="/add" method="post">
-          <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
-          <button class="add" type="submit" name="list" value=<%=listTitle %> >+</button>
-        </form>
-  </div>
+      <form class="edit" action="/edit" method="post"> <!-- Form to handle editing an item -->
+        <input type="hidden" name="updatedItemId" value="<%= item.id %>"> <!-- Hidden input to store the ID of the item being edited -->
+        <input id="input<%=item.id%>" type="text" name="updatedItemTitle" value="<%= item.title %>" autocomplete="off"
+          autofocus="true" hidden="true" /> <!-- Input field for updating the item's title, initially hidden -->
+        <button id="done<%=item.id%>" class="edit" type="submit" hidden> <!-- Button to submit the edit form, initially hidden -->
+          <img class="icon" src="/assets/icons/check-solid.svg" alt="tick image"> <!-- Check icon for submission -->
+        </button>
+      </form>
+      
+      <button id="edit<%=item.id%>" class="edit" onclick="handler('<%=item.id%>')"> <!-- Button to trigger edit mode for the item -->
+        <img class="icon" src="/assets/icons/pencil-solid.svg" alt="pencil image"> <!-- Pencil icon for editing -->
+      </button>
+    </div>
+  <% } %> <!-- End of loop over listItems -->
 
-  <script>
-    function handler(id) {
-      document.getElementById("title" + id).setAttribute("hidden", true)
-      document.getElementById("edit" + id).setAttribute("hidden", true)
-      document.getElementById("done" + id).removeAttribute("hidden")
-      document.getElementById("input" + id).removeAttribute("hidden")
-    }
-  </script>
-  <%- include('partials/footer.ejs'); -%>
+  <form class="item" action="/add" method="post"> <!-- Form to add a new item to the list -->
+    <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" /> <!-- Input for new item title -->
+    <button class="add" type="submit" name="list" value=<%=listTitle %> >+</button> <!-- Button to submit new item, with list title as value -->
+  </form>
+</div>
+
+<script>
+  function handler(id) { // Function to handle showing the edit input field
+    document.getElementById("title" + id).setAttribute("hidden", true) // Hide the item's title
+    document.getElementById("edit" + id).setAttribute("hidden", true) // Hide the edit button
+    document.getElementById("done" + id).removeAttribute("hidden") // Show the done button
+    document.getElementById("input" + id).removeAttribute("hidden") // Show the input field for editing
+  }
+</script>
+
+<%- include('partials/footer.ejs'); -%> <!-- Include the footer partial template -->
