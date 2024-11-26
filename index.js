@@ -19,7 +19,7 @@ app.use(express.static("public"));
 
 // use async to wait for response
 app.get("/",async (req, res) => {
-  const result =await db.query("SELECT * FROM todolist;");
+  const result =await db.query("SELECT * FROM todolist ORDER BY id ASC;");
   res.render("index.ejs", {
     listTitle: "Today",
     listItems: result.rows,
