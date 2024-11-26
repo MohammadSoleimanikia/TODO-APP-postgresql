@@ -27,14 +27,19 @@ app.get("/",async (req, res) => {
 });
 
 app.post("/add",async (req, res) => {
-  
   const result =await db.query("INSERT INTO todolist (title) VALUES ($1);",[req.body.newItem]);
   res.redirect("/");
 });
 
-app.post("/edit", (req, res) => {});
+app.post("/edit",async (req, res) => {
+  const result =await db.query("UPDATE todolist SET title =$1 WHERE id=$2;",[req.body.updatedItemTitle,req.body.updatedItemId]);
+  res.redirect("/");
+});
 
-app.post("/delete", (req, res) => {});
+app.post("/delete", async(req, res) => {
+  const result =await db.query("Delete from todolist Where id=$1;",[req.body.deleteItemId]);
+  res.redirect("/");
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

@@ -20,7 +20,7 @@
       <form class="edit" action="/edit" method="post"> <!-- Form to handle editing an item -->
         <input type="hidden" name="updatedItemId" value="<%= item.id %>"> <!-- Hidden input to store the ID of the item being edited -->
         <input id="input<%=item.id%>" type="text" name="updatedItemTitle" value="<%= item.title %>" autocomplete="off"
-          autofocus="true" hidden="true" /> <!-- Input field for updating the item's title, initially hidden -->
+           hidden="true" /> <!-- Input field for updating the item's title, initially hidden -->
         <button id="done<%=item.id%>" class="edit" type="submit" hidden> <!-- Button to submit the edit form, initially hidden -->
           <img class="icon" src="/assets/icons/check-solid.svg" alt="tick image"> <!-- Check icon for submission -->
         </button>
