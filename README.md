@@ -1,4 +1,3 @@
-```markdown
 # ToDo List Manager 📝
 
 A simple **To-Do List Manager** application built with `Node.js`, `Express`, and `PostgreSQL`. This app allows users to manage their tasks with functionalities such as **Add**, **Edit**, and **Delete**. All tasks are stored in a PostgreSQL database for persistent storage. 🚀
